@@ -3,6 +3,7 @@ plugins {
     id("org.jetbrains.kotlin.android")
     id("org.jetbrains.kotlin.plugin.compose")
     id("org.jetbrains.kotlin.plugin.serialization") version "2.1.10"
+    id("com.google.devtools.ksp")
 }
 
 android {
@@ -75,4 +76,9 @@ dependencies {
     //navigation
     //implementation("org.jetbrains.kotlin:kotlin-stdlib:1.8.0")
     implementation("androidx.navigation:navigation-compose:2.8.9")
+
+    //room
+    val roomVersion = "2.7.2"
+    implementation("androidx.room:room-runtime:$roomVersion")
+    implementation("androidx.room:room-ktx:$roomVersion")
 }

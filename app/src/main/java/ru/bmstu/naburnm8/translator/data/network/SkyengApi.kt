@@ -3,7 +3,6 @@ package ru.bmstu.naburnm8.translator.data.network
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
-import ru.bmstu.naburnm8.translator.data.Word
 
 interface SkyengApi {
     @GET("/api/public/v1/words/search")

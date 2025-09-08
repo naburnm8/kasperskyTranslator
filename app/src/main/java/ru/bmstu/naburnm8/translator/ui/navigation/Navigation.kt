@@ -9,16 +9,15 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.navigation.compose.rememberNavController
 import org.koin.androidx.compose.koinViewModel
-import ru.bmstu.naburnm8.translator.ui.mainActivity.MainActivityViewModel
+import ru.bmstu.naburnm8.translator.viewModel.mainActivity.MainActivityViewModel
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.lifecycle.viewmodel.compose.LocalViewModelStoreOwner
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import ru.bmstu.naburnm8.translator.ui.favourites.FavouritesScreen
 import ru.bmstu.naburnm8.translator.ui.history.HistoryScreen
-import ru.bmstu.naburnm8.translator.ui.mainActivity.Route
+import ru.bmstu.naburnm8.translator.viewModel.mainActivity.Route
 import ru.bmstu.naburnm8.translator.ui.translate.TranslateScreen
 
 @Composable

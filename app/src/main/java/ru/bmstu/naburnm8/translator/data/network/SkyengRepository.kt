@@ -1,8 +1,6 @@
 package ru.bmstu.naburnm8.translator.data.network
 
 import android.accounts.NetworkErrorException
-import android.net.http.NetworkException
-import ru.bmstu.naburnm8.translator.data.Word
 import ru.bmstu.naburnm8.translator.domain.WordDomain
 import ru.bmstu.naburnm8.translator.domain.WordMapper
 

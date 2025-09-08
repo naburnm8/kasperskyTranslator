@@ -1,4 +1,4 @@
-package ru.bmstu.naburnm8.translator.ui.mainActivity
+package ru.bmstu.naburnm8.translator.viewModel.mainActivity
 
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.flow.MutableStateFlow

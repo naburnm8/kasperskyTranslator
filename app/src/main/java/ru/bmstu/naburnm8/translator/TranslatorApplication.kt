@@ -8,6 +8,7 @@ import org.koin.core.logger.Level
 import ru.bmstu.naburnm8.translator.di.dataModule
 import ru.bmstu.naburnm8.translator.di.networkModule
 import ru.bmstu.naburnm8.translator.di.viewModelModule
+import ru.bmstu.naburnm8.translator.di.dbModule
 
 class TranslatorApplication : Application() {
     override fun onCreate() {
@@ -16,7 +17,7 @@ class TranslatorApplication : Application() {
         startKoin {
             androidLogger(Level.DEBUG)
             androidContext(this@TranslatorApplication)
-            modules(listOf(viewModelModule, networkModule, dataModule))
+            modules(listOf(viewModelModule, networkModule, dataModule, dbModule))
         }
     }
 }

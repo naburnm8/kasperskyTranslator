@@ -1,4 +1,4 @@
-package ru.bmstu.naburnm8.translator.data
+package ru.bmstu.naburnm8.translator.data.network
 
 import kotlinx.serialization.Serializable
 
