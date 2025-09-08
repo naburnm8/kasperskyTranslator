@@ -3,7 +3,7 @@ package ru.bmstu.naburnm8.translator.ui.theme
 import androidx.compose.ui.graphics.Color
 
 val Purple80 = Color(0xFFD0BCFF)
-val PurpleGrey80 = Color(0xFFCCC2DC)
+val PurpleGrey80 = Color(0xFFC5C3C5)
 val Pink80 = Color(0xFFEFB8C8)
 val BackgroundPurpleLight = Color(0xFFEAE0FD)
 
