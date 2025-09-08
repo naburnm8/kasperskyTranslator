@@ -5,4 +5,6 @@ data class WordDomain (
     val translation: String,
     val fullImageUrl: String,
     val previewUrl: String,
+    val dbId: Long = -1,
+    val isInFavourites: Boolean = false
 )

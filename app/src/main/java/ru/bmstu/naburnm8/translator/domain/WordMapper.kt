@@ -18,7 +18,9 @@ class WordMapper {
                 word = wordDatabaseEntity.word,
                 translation = wordDatabaseEntity.translation,
                 previewUrl = wordDatabaseEntity.previewUrl,
-                fullImageUrl = wordDatabaseEntity.fullImageUrl
+                fullImageUrl = wordDatabaseEntity.fullImageUrl,
+                dbId = wordDatabaseEntity.id,
+                isInFavourites = wordDatabaseEntity.isInFavourites
             )
         }
         fun toDto(wordDomain: WordDomain): WordDatabaseEntity {
@@ -26,7 +28,9 @@ class WordMapper {
                 word = wordDomain.word,
                 translation = wordDomain.translation,
                 previewUrl = wordDomain.previewUrl,
-                fullImageUrl = wordDomain.fullImageUrl
+                fullImageUrl = wordDomain.fullImageUrl,
+                id = wordDomain.dbId,
+                isInFavourites = wordDomain.isInFavourites
             )
         }
     }
