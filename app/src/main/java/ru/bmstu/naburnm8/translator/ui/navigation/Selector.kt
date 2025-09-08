@@ -1,3 +1,4 @@
+@file:Suppress("FunctionName")
 package ru.bmstu.naburnm8.translator.ui.navigation
 
 import androidx.compose.foundation.background
