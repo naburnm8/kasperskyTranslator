@@ -9,10 +9,10 @@ class MainActivityViewModel: ViewModel() {
     val stateFlow = _stateFlow.asStateFlow()
 
     fun changeScreen(route: Route) {
-        _stateFlow.value = _stateFlow.value.copy(route = route)
+        _stateFlow.value = MainActivityState(route = route)
     }
 
     fun reset() {
-        _stateFlow.value = _stateFlow.value.copy(route = Route.Translate)
+        _stateFlow.value = MainActivityState(route = Route.Translate)
     }
 }

@@ -3,6 +3,7 @@
 package ru.bmstu.naburnm8.translator.ui.navigation
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -55,9 +56,10 @@ fun BaseButton(
                 ambientColor = mainColor
             )
             .background(MaterialTheme.colorScheme.onBackground)
-            .height(72.dp)
-            .width(72.dp),
+            .height(90.dp)
+            .width(90.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
     ) {
         IconButton(
             onClick = onClick,
@@ -77,7 +79,7 @@ fun BaseButton(
             text = contentDescription,
             textAlign = TextAlign.Center,
             color = mainColor,
-            fontSize = 10.sp,
+            fontSize = 14.sp,
             modifier = Modifier.wrapContentSize()
         )
     }
