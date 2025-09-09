@@ -8,9 +8,16 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import ru.bmstu.naburnm8.translator.data.database.WordDatabaseRepository
 import ru.bmstu.naburnm8.translator.domain.WordDomain
+import ru.bmstu.naburnm8.translator.domain.WordMapper
 
 class HistoryViewModel(private val repo: WordDatabaseRepository) : ViewModel() {
     val stateFlow: StateFlow<List<WordDomain>> = repo.observe().stateIn(viewModelScope, SharingStarted.Lazily, emptyList())
+
+    fun insert(wordDomain: WordDomain) {
+        viewModelScope.launch {
+            repo.insert(WordMapper.toDto(wordDomain))
+        }
+    }
 
     fun toggleFavourite(wordDomain: WordDomain) {
         viewModelScope.launch {

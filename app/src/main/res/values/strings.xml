@@ -5,4 +5,7 @@
     <string name="favourites">Favourites</string>
     <string name="search">Type a word you wish to translate!</string>
     <string name="invalidInput">Invalid input</string>
+    <string name="error">An error has occurred</string>
+    <string name="tryTranslate">Try translating something using the searchbar above</string>
+    <string name="noTranslation">No translation was found</string>
 </resources>

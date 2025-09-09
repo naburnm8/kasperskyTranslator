@@ -40,11 +40,11 @@ import ru.bmstu.naburnm8.translator.ui.theme.TranslatorTheme
 fun SearchBar(
     modifier: Modifier = Modifier,
     onSearchButtonClick: (String) -> Unit,
-    validateInput: (String) -> Boolean = { false },
+    validateInput: (String) -> Boolean = { true },
 ) {
     var text by remember { mutableStateOf("") }
 
-    val isError = validateInput(text)
+    val isError = !validateInput(text)
 
     Row(modifier = modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.Center,
