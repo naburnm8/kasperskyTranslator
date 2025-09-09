@@ -7,7 +7,6 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import ru.bmstu.naburnm8.translator.data.database.WordDatabaseRepository
 import ru.bmstu.naburnm8.translator.data.network.SkyengRepository
-import ru.bmstu.naburnm8.translator.domain.WordDomain
 import ru.bmstu.naburnm8.translator.domain.WordMapper
 
 class TranslateViewModel(private val skyengRepository: SkyengRepository, private val dbRepo: WordDatabaseRepository): ViewModel() {
