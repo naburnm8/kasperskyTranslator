@@ -1,4 +1,4 @@
-package ru.bmstu.naburnm8.translator.viewModel.history
+package ru.bmstu.naburnm8.translator.viewModel.favourites
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
@@ -7,21 +7,11 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
-
-
 import ru.bmstu.naburnm8.translator.data.database.WordDatabaseRepository
 import ru.bmstu.naburnm8.translator.domain.WordDomain
-import ru.bmstu.naburnm8.translator.domain.WordMapper
 
-class HistoryViewModel(private val repo: WordDatabaseRepository) : ViewModel() {
-    val stateFlow: StateFlow<List<WordDomain>> = repo.observe().stateIn(viewModelScope, SharingStarted.Lazily, emptyList())
-
-    fun insert(wordDomain: WordDomain) {
-        viewModelScope.launch {
-            repo.insert(WordMapper.toDto(wordDomain))
-            Log.d("history", "Inserted ${wordDomain.word}")
-        }
-    }
+class FavouritesViewModel(private val repo: WordDatabaseRepository): ViewModel() {
+    val stateFlow: StateFlow<List<WordDomain>> = repo.observeFavourites().stateIn(viewModelScope, SharingStarted.Lazily, emptyList())
 
     fun delete(wordDomain: WordDomain) {
         viewModelScope.launch {
@@ -39,6 +29,4 @@ class HistoryViewModel(private val repo: WordDatabaseRepository) : ViewModel() {
             }
         }
     }
-
-
 }

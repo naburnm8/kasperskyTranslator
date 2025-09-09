@@ -8,4 +8,5 @@
     <string name="error">An error has occurred</string>
     <string name="tryTranslate">Try translating something using the searchbar above</string>
     <string name="noTranslation">No translation was found</string>
+    <string name="empty">The history is empty</string>
 </resources>

@@ -36,7 +36,10 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.sp
+import ru.bmstu.naburnm8.translator.ui.translate.StyledBox
 
 @Composable
 fun HistoryShortCard(
@@ -160,6 +163,48 @@ fun HistoryShortCardPreviewDark() {
     }
 }
 
+
+@Composable
+fun WordList(
+    modifier: Modifier = Modifier,
+    onFavouriteToggle: (WordDomain) -> Unit,
+    onDeleteClick: (WordDomain) -> Unit,
+    list: List<WordDomain>,
+) {
+    if (list.isNotEmpty()) {
+        LazyColumn(
+            modifier = modifier.shadow(
+                elevation = 20.dp,
+                clip = true,
+                shape = RoundedCornerShape(20.dp),
+                ambientColor = MaterialTheme.colorScheme.primary,
+                spotColor = MaterialTheme.colorScheme.primary,
+            ).background(MaterialTheme.colorScheme.onBackground),
+            contentPadding = PaddingValues(8.dp),
+            verticalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
+            items(list) { word ->
+                HistoryShortCard(
+                    wordDomain = word,
+                    onFavouriteToggle = onFavouriteToggle,
+                    onDeleteClick = onDeleteClick,
+                )
+            }
+        }
+    } else {
+        StyledBox {
+            Text (
+                text = stringResource(R.string.empty),
+                color = MaterialTheme.colorScheme.primary,
+                fontSize = 18.sp,
+                modifier = Modifier.fillMaxWidth(),
+                textAlign = TextAlign.Center,
+            )
+
+        }
+    }
+}
+
 @Composable
 fun HistoryPeekCard(
     modifier: Modifier = Modifier,
@@ -186,25 +231,11 @@ fun HistoryPeekCard(
                 color = MaterialTheme.colorScheme.primary,
             )
         }
-        LazyColumn(
-            modifier = Modifier.shadow(
-                elevation = 20.dp,
-                clip = true,
-                shape = RoundedCornerShape(20.dp),
-                ambientColor = MaterialTheme.colorScheme.primary,
-                spotColor = MaterialTheme.colorScheme.primary,
-            ).background(MaterialTheme.colorScheme.onBackground),
-            contentPadding = PaddingValues(8.dp),
-            verticalArrangement = Arrangement.spacedBy(8.dp)
-        ) {
-            items(list) { word ->
-                HistoryShortCard(
-                    wordDomain = word,
-                    onFavouriteToggle = onFavouriteToggle,
-                    onDeleteClick = onDeleteClick,
-                )
-            }
-        }
+        WordList(
+            onFavouriteToggle = onFavouriteToggle,
+            onDeleteClick = onDeleteClick,
+            list = list,
+        )
     }
 }
 
