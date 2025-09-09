@@ -11,8 +11,5 @@ import androidx.compose.ui.Modifier
 fun FavouritesScreen(
 
 ) {
-    Text(
-        text = "Favourites",
-        modifier = Modifier.fillMaxSize(),
-    )
+
 }

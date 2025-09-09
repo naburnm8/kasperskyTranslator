@@ -10,8 +10,6 @@ data class WordDatabaseEntity (
     @PrimaryKey(autoGenerate = true) val id: Long = 0L,
     val word: String,
     val translation: String,
-    val fullImageUrl: String,
-    val previewUrl: String,
     val createdAt: Long = System.currentTimeMillis(),
     val isInFavourites: Boolean = false,
 )

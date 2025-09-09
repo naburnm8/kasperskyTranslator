@@ -1,10 +1,12 @@
 package ru.bmstu.naburnm8.translator.data.database
 
+import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import kotlinx.coroutines.flow.Flow
 
+@Dao
 interface WordDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insert(word: WordDatabaseEntity): Long

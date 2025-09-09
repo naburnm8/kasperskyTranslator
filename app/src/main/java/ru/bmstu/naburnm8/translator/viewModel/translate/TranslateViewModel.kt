@@ -5,11 +5,15 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import ru.bmstu.naburnm8.translator.data.database.WordDatabaseRepository
 import ru.bmstu.naburnm8.translator.data.network.SkyengRepository
+import ru.bmstu.naburnm8.translator.domain.WordDomain
+import ru.bmstu.naburnm8.translator.domain.WordMapper
 
-class TranslateViewModel(private val skyengRepository: SkyengRepository): ViewModel() {
+class TranslateViewModel(private val skyengRepository: SkyengRepository, private val dbRepo: WordDatabaseRepository): ViewModel() {
     private val _stateFlow = MutableStateFlow<TranslateState>(TranslateState.Empty)
     val stateFlow = _stateFlow.asStateFlow()
+
 
     fun search(query: String) {
         viewModelScope.launch {
@@ -28,6 +32,7 @@ class TranslateViewModel(private val skyengRepository: SkyengRepository): ViewMo
                         _stateFlow.value = TranslateState.Error
                     } else {
                         _stateFlow.value = TranslateState.Success(domain)
+                        dbRepo.insert(WordMapper.toDto(domain))
                     }
                 }
             }.onFailure {

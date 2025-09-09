@@ -1,6 +1,6 @@
 @file:Suppress("FunctionName")
 
-package ru.bmstu.naburnm8.translator.ui.translate
+package ru.bmstu.naburnm8.translator.ui.history
 
 import androidx.compose.foundation.background
 import androidx.compose.ui.graphics.Color
@@ -29,23 +29,21 @@ import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import coil3.ColorImage
-import coil3.annotation.ExperimentalCoilApi
-import coil3.compose.AsyncImage
-import coil3.compose.AsyncImagePreviewHandler
-import coil3.compose.LocalAsyncImagePreviewHandler
 import ru.bmstu.naburnm8.translator.R
 import ru.bmstu.naburnm8.translator.domain.WordDomain
 import ru.bmstu.naburnm8.translator.ui.theme.TranslatorTheme
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.HorizontalDivider
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.sp
 
 @Composable
 fun HistoryShortCard(
     modifier: Modifier = Modifier,
     onFavouriteToggle: (WordDomain) -> Unit,
     wordDomain: WordDomain,
+    onDeleteClick: (WordDomain) -> Unit,
 ) {
     Column(
         modifier = modifier.fillMaxWidth(),
@@ -56,17 +54,22 @@ fun HistoryShortCard(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween,
         ) {
-            AsyncImage(
-                model = wordDomain.previewUrl,
-                contentDescription = null,
+            IconButton(
+                onClick = { onDeleteClick(wordDomain) },
                 modifier = Modifier.height(48.dp).width(48.dp).shadow(
                     elevation = 20.dp,
                     clip = true,
                     shape = CircleShape,
                     spotColor = MaterialTheme.colorScheme.primary,
                     ambientColor = MaterialTheme.colorScheme.primary
-                ),
-            )
+                ).background(MaterialTheme.colorScheme.onBackground),
+            ) {
+                Icon(
+                    painter = painterResource(R.drawable.delete),
+                    contentDescription = null,
+                    tint = MaterialTheme.colorScheme.primary,
+                )
+            }
             Row(
                 verticalAlignment = Alignment.CenterVertically,
             ) {
@@ -121,47 +124,39 @@ fun HistoryShortCard(
     }
 }
 
-@OptIn(ExperimentalCoilApi::class)
-val previewHandler = AsyncImagePreviewHandler {
-    ColorImage(Color.Red.toArgb())
-}
 
-@OptIn(ExperimentalCoilApi::class)
 @Preview
 @Composable
 fun HistoryShortCardPreviewLight() {
     TranslatorTheme {
-        CompositionLocalProvider(LocalAsyncImagePreviewHandler provides previewHandler) {
+
             HistoryShortCard(
                 wordDomain = WordDomain(
                     word = "Computer",
                     translation = "Компьютер",
-                    fullImageUrl = "",
-                    previewUrl = "",
                     isInFavourites = true,
                 ),
                 onFavouriteToggle = {},
+                onDeleteClick = {},
             )
-        }
+
     }
 }
 
-@OptIn(ExperimentalCoilApi::class)
 @Preview
 @Composable
 fun HistoryShortCardPreviewDark() {
     TranslatorTheme(darkTheme = true) {
-        CompositionLocalProvider(LocalAsyncImagePreviewHandler provides previewHandler) {
+
             HistoryShortCard(
                 wordDomain = WordDomain(
                     word = "Computer",
                     translation = "Компьютер",
-                    fullImageUrl = "",
-                    previewUrl = "",
                 ),
                 onFavouriteToggle = {},
+                onDeleteClick = {},
             )
-        }
+
     }
 }
 
@@ -169,25 +164,46 @@ fun HistoryShortCardPreviewDark() {
 fun HistoryPeekCard(
     modifier: Modifier = Modifier,
     list: List<WordDomain>,
-    onFavouriteToggle: (WordDomain) -> Unit
+    onFavouriteToggle: (WordDomain) -> Unit,
+    onDeleteClick: (WordDomain) -> Unit,
 ) {
-    LazyColumn(
-        modifier = modifier.shadow(
-            elevation = 20.dp,
-            clip = true,
-            shape = RoundedCornerShape(20.dp),
-            ambientColor = MaterialTheme.colorScheme.primary,
-            spotColor = MaterialTheme.colorScheme.primary,
-        ).background(MaterialTheme.colorScheme.onBackground),
-        contentPadding = PaddingValues(8.dp),
-        verticalArrangement = Arrangement.spacedBy(8.dp)
+    Column (
+        modifier = modifier,
     ) {
-        items(list) {
-            word ->
+        Row (
+            modifier = Modifier.fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            Icon(
+                painter = painterResource(R.drawable.history),
+                contentDescription = null,
+                modifier = Modifier.height(32.dp).width(32.dp),
+                tint = MaterialTheme.colorScheme.primary,
+            )
+            Text (
+                text = stringResource(R.string.history),
+                fontSize = 24.sp,
+                color = MaterialTheme.colorScheme.primary,
+            )
+        }
+        LazyColumn(
+            modifier = Modifier.shadow(
+                elevation = 20.dp,
+                clip = true,
+                shape = RoundedCornerShape(20.dp),
+                ambientColor = MaterialTheme.colorScheme.primary,
+                spotColor = MaterialTheme.colorScheme.primary,
+            ).background(MaterialTheme.colorScheme.onBackground),
+            contentPadding = PaddingValues(8.dp),
+            verticalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
+            items(list) { word ->
                 HistoryShortCard(
                     wordDomain = word,
-                    onFavouriteToggle = onFavouriteToggle
+                    onFavouriteToggle = onFavouriteToggle,
+                    onDeleteClick = onDeleteClick,
                 )
+            }
         }
     }
 }
@@ -197,26 +213,18 @@ val mockList = listOf(
     WordDomain(
         word = "Computer",
         translation = "Компьютер",
-        fullImageUrl = "",
-        previewUrl = "",
     ),
     WordDomain(
         word = "Closet",
         translation = "Шкаф",
-        fullImageUrl = "",
-        previewUrl = "",
     ),
     WordDomain(
         word = "Kitchen",
         translation = "Кухня",
-        fullImageUrl = "",
-        previewUrl = "",
     ),
     WordDomain(
         word = "Fork",
         translation = "Вилка",
-        fullImageUrl = "",
-        previewUrl = "",
     ),
     )
 
@@ -224,12 +232,13 @@ val mockList = listOf(
 @Composable
 fun HistoryPeekCardPreviewLight() {
     TranslatorTheme {
-        CompositionLocalProvider(LocalAsyncImagePreviewHandler provides previewHandler) {
+
             HistoryPeekCard(
                 list = mockList,
                 onFavouriteToggle = {},
+                onDeleteClick = {},
             )
-        }
+
     }
 }
 
@@ -237,11 +246,12 @@ fun HistoryPeekCardPreviewLight() {
 @Composable
 fun HistoryPeekCardPreviewDark() {
     TranslatorTheme (darkTheme = true) {
-        CompositionLocalProvider(LocalAsyncImagePreviewHandler provides previewHandler) {
+
             HistoryPeekCard(
                 list = mockList,
                 onFavouriteToggle = {},
+                onDeleteClick = {},
             )
-        }
+
     }
 }

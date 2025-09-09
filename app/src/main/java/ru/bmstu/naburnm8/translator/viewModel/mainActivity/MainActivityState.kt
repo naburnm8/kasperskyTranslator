@@ -1,7 +1,7 @@
 package ru.bmstu.naburnm8.translator.viewModel.mainActivity
 
 enum class Route {
-    Translate, History, Favourites
+    Translate, Favourites
 }
 
 data class MainActivityState(

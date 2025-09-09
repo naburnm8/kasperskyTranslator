@@ -6,7 +6,7 @@ import androidx.room.RoomDatabase
 
 @Database(
     entities = [WordDatabaseEntity::class],
-    version = 1,
+    version = 2,
     exportSchema = true
 )
 abstract class TranslatorDatabase: RoomDatabase() {

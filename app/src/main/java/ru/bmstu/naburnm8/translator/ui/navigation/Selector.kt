@@ -45,14 +45,6 @@ fun Selector(
             currentButton = Route.Translate
         }
         BaseButton(
-            painter = painterResource(id = R.drawable.history),
-            contentDescription = stringResource(id = R.string.history),
-            isSelected = currentButton == Route.History,
-        ) {
-            viewModel.changeScreen(Route.History)
-            currentButton = Route.History
-        }
-        BaseButton(
             painter = painterResource(id = R.drawable.favourites),
             contentDescription = stringResource(R.string.favourites),
             isSelected = currentButton == Route.Favourites

@@ -16,7 +16,6 @@ import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import ru.bmstu.naburnm8.translator.ui.favourites.FavouritesScreen
-import ru.bmstu.naburnm8.translator.ui.history.HistoryScreen
 import ru.bmstu.naburnm8.translator.viewModel.mainActivity.Route
 import ru.bmstu.naburnm8.translator.ui.translate.TranslateScreen
 
@@ -39,9 +38,6 @@ fun Navigation (viewModel: MainActivityViewModel = koinViewModel()) {
     ) {
         composable(Route.Translate.name) {
             TranslateScreen()
-        }
-        composable(Route.History.name) {
-            HistoryScreen()
         }
         composable(Route.Favourites.name) {
             FavouritesScreen()

@@ -12,8 +12,6 @@ data class Translation (
 data class Meaning (
     val id: Long,
     val translation: Translation,
-    val previewUrl: String,
-    val imageUrl: String,
 )
 
 @Serializable

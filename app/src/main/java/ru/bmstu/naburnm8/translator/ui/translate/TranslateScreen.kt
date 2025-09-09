@@ -6,7 +6,6 @@ package ru.bmstu.naburnm8.translator.ui.translate
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -17,24 +16,18 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.draw.shadow
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -44,6 +37,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import org.koin.androidx.compose.koinViewModel
 import ru.bmstu.naburnm8.translator.R
 import ru.bmstu.naburnm8.translator.domain.WordDomain
+import ru.bmstu.naburnm8.translator.ui.history.HistoryPeekCard
 import ru.bmstu.naburnm8.translator.ui.theme.TranslatorTheme
 import ru.bmstu.naburnm8.translator.viewModel.history.HistoryViewModel
 import ru.bmstu.naburnm8.translator.viewModel.translate.TranslateState
@@ -58,22 +52,24 @@ fun TranslateScreen(
     val state = vmNetwork.stateFlow.collectAsState()
     val dbItems by vmDatabase.stateFlow.collectAsStateWithLifecycle()
 
-    Column (modifier = Modifier.fillMaxSize(), verticalArrangement = Arrangement.spacedBy(12.dp)) {
+    Column (modifier = Modifier.fillMaxSize(), verticalArrangement = Arrangement.Center) {
+        Spacer(modifier = Modifier.height(24.dp))
         TranslateContent(
-                modifier = Modifier.fillMaxSize().weight(0.3f),
+                modifier = Modifier.padding(16.dp),
                 onSearchButtonClick = { vmNetwork.search(it) },
-                onHistorySave = {vmDatabase.insert(it)},
                 state = state.value,
             )
-
         HistoryPeekCard(
-            modifier = Modifier.fillMaxSize().weight(0.7f),
+            modifier = Modifier.fillMaxSize().weight(0.7f).padding(16.dp),
             list = dbItems,
-            onFavouriteToggle = {vmDatabase.toggleFavourite(it)}
+            onFavouriteToggle = { vmDatabase.toggleFavourite(it) },
+            onDeleteClick = {vmDatabase.delete(it)}
         )
     }
 
 }
+
+
 
 @Composable
 fun TranslateContent(
@@ -81,22 +77,19 @@ fun TranslateContent(
     state: TranslateState,
     onSearchButtonClick: (String) -> Unit,
     validateInput: (String) -> Boolean = { true },
-    onHistorySave: (WordDomain) -> Unit = {},
 ) {
     Column(
         modifier = modifier,
-        verticalArrangement = Arrangement.Center,
+        verticalArrangement = Arrangement.spacedBy(4.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         SearchBar(
             onSearchButtonClick = onSearchButtonClick,
             validateInput = validateInput
         )
-        Spacer(modifier = modifier.height(16.dp))
 
         when (state) {
             is TranslateState.Success -> {
-                onHistorySave(state.word)
                 Row(
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically,
@@ -208,7 +201,8 @@ fun TranslateContentPreviewEasyState() {
     TranslatorTheme {
         TranslateContent(
             onSearchButtonClick = {},
-            state = TranslateState.Error
+            state = TranslateState.Error,
+            modifier = Modifier,
         )
     }
 }
@@ -222,8 +216,6 @@ fun TranslateContentPreviewComplicatedState() {
                 WordDomain(
                     word = "Cotton",
                     translation = "Хлопок",
-                    fullImageUrl = "",
-                    previewUrl = ""
                 )
             ),
             onSearchButtonClick = {},
